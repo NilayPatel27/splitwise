@@ -1,9 +1,10 @@
-import Image from "next/image";
+// app/page.tsx
+import PurchaseTable from '@/app/components/splitwiseForm'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  );
+    <main className="min-h-screen bg-gray-50 p-6">
+      <PurchaseTable />
+    </main>
+  )
 }
