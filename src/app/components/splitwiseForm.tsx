@@ -32,6 +32,15 @@ const SplitwiseForm = () => {
                                             key={index}
                                         >
                                             <ItemComponent index={index} item={item} setItem={setItem} />
+                                            {/* delete item */}
+                                            <Button
+                                                onClick={() => {
+                                                    setItemCount(itemCount - 1);
+                                                    setItem(item.filter((_, i) => i !== index));
+                                                }}
+                                                variant="outline"
+                                                style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
+                                            >Delete</Button>
                                             <NameComponent index={index} item={item} setItem={setItem} />
                                         </div>
                                     )
