@@ -42,6 +42,20 @@ const SplitwiseForm = () => {
                                                 style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
                                             >Delete</Button>
                                             <NameComponent index={index} item={item} setItem={setItem} />
+                                            {/* check all names */}
+                                            <Button
+                                                onClick={() => {
+                                                    const temp = JSON.parse(JSON.stringify(item));
+                                                    temp[index].contributor.length === 6 ? temp[index].contributor = [] :
+                                                        temp[index].contributor = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
+                                                    setItem(temp);
+                                                }}
+                                                variant="outline"
+                                                style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
+                                            >
+                                                {
+                                                    item[index].contributor.length === 6 ? 'Uncheck All' : 'Check All'
+                                                }</Button>
                                         </div>
                                     )
                                 })
