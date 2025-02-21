@@ -8,11 +8,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
+import { Input } from "@/components/ui/input";
 
 const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
 
     const names = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
+    const [totalBill, setTotalBill] = useState(0);
 
     const tempItem = JSON.parse(JSON.stringify(item));
     const [individualExpense, setIndividualExpense] = useState({
@@ -51,7 +52,13 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
             }
         }
         setIndividualExpense(individualExpenses);
-    }, [item])
+        const total = tempItem.reduce((acc: number, item: any) => {
+            return acc + item?.price;
+        }, 0);
+        setTotalBill(total);
+    }, [item]);
+
+    const [discount, setDiscount] = useState(0);
 
     return (
         <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', position: 'sticky', top: '0', zIndex: 1, backgroundColor: 'black' }}>
@@ -73,18 +80,32 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                     <DialogTrigger>Summary</DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle style={{ textAlign: "center" }}>Individual Expense</DialogTitle>
+                            <div style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', display: 'flex', width: "100%", padding: '10px' }}>
+                                <DialogTitle style={{ textAlign: "center" }}>Contributor</DialogTitle>
+                                <DialogTitle style={{ textAlign: "center" }}>Individual Expense</DialogTitle>
+                                <DialogTitle style={{ textAlign: "center" }}>
+                                    <Input type="number" placeholder="Discount" style={{ width: "50%", color: "black" }}
+                                        onChange={(e) => {
+                                            setDiscount(Number(e.target.value));
+                                            if (!e.target.value) {
+                                                setDiscount(0);
+                                            }
+                                        }}
+                                        max={totalBill}
+                                    />
+                                </DialogTitle>
+                            </div>
                             <DialogDescription>
                                 {
                                     Array.from({ length: names.length }).map((_, contributor) => {
                                         return (
                                             <>
-                                                <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: "100%", padding: '10px' }}>
+                                                <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: "100%", padding: '5px' }}>
                                                     <div style={{
                                                         flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
                                                         backgroundColor: 'white',
                                                         margin: '10px', padding: '10px', borderRadius: '5px',
-                                                        borderWidth: '1px', borderColor: 'black', borderStyle: 'solid', color: 'black'
+                                                        borderWidth: '3px', borderColor: 'black', borderStyle: 'solid', color: 'black'
                                                     }}
                                                         key={contributor}
                                                     >{names[contributor]}
@@ -93,10 +114,28 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                                                         flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
                                                         backgroundColor: 'white',
                                                         margin: '10px', padding: '10px', borderRadius: '5px',
-                                                        borderWidth: '1px', borderColor: 'black', borderStyle: 'solid'
+                                                        borderWidth: '3px', borderColor: 'blue', borderStyle: 'solid'
                                                     }}
                                                         key={contributor}
                                                     >{individualExpense[names[contributor]].toFixed(2)}
+                                                    </div>
+                                                    <div style={{
+                                                        flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
+                                                        backgroundColor: 'white',
+                                                        margin: '10px', padding: '10px', borderRadius: '5px',
+                                                        borderWidth: '3px', borderColor: 'red', borderStyle: 'solid'
+                                                    }}
+                                                        key={contributor}
+                                                    >{(individualExpense[names[contributor]].toFixed(2) - (individualExpense[names[contributor]].toFixed(2) * discount / totalBill).toFixed(2)).toFixed(2)}
+                                                    </div>
+                                                    <div style={{
+                                                        flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
+                                                        backgroundColor: 'white',
+                                                        margin: '10px', padding: '10px', borderRadius: '5px',
+                                                        borderWidth: '3px', borderColor: 'green', borderStyle: 'solid'
+                                                    }}
+                                                        key={contributor}
+                                                    >{discount ? ((individualExpense[names[contributor]].toFixed(2) * discount) / totalBill).toFixed(2) : 0}
                                                     </div>
                                                 </div>
                                             </>
