@@ -9,14 +9,8 @@ import Header from './header';
 
 const SplitwiseForm = () => {
 
-    const [item, setItem] = useState([{
-        name: '',
-        price: 0,
-        isChecked: false,
-        contributor: []
-    }]);
-
-    const [itemCount, setItemCount] = useState(1);
+    const [item, setItem] = useState([]);
+    const [itemCount, setItemCount] = useState(0);
 
     return (
         <div>
@@ -31,8 +25,7 @@ const SplitwiseForm = () => {
                                         <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', padding: '10px' }}
                                             key={index}
                                         >
-                                            <ItemComponent index={index} item={item} setItem={setItem} />
-                                            {/* delete item */}
+                                            <ItemComponent index={index} item={item} setItem={setItem} checkBox={true} />
                                             <Button
                                                 onClick={() => {
                                                     setItemCount(itemCount - 1);
@@ -42,11 +35,10 @@ const SplitwiseForm = () => {
                                                 style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
                                             >Delete</Button>
                                             <NameComponent index={index} item={item} setItem={setItem} />
-                                            {/* check all names */}
                                             <Button
                                                 onClick={() => {
                                                     const temp = JSON.parse(JSON.stringify(item));
-                                                    temp[index].contributor.length === 6 ? temp[index].contributor = [] :
+                                                    temp[index]?.contributor?.length === 6 ? temp[index].contributor = [] :
                                                         temp[index].contributor = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
                                                     setItem(temp);
                                                 }}
@@ -54,7 +46,7 @@ const SplitwiseForm = () => {
                                                 style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
                                             >
                                                 {
-                                                    item[index].contributor.length === 6 ? 'Uncheck All' : 'Check All'
+                                                    item[index]?.contributor?.length === 6 ? 'Uncheck All' : 'Check All'
                                                 }</Button>
                                         </div>
                                     )
@@ -62,7 +54,6 @@ const SplitwiseForm = () => {
                             }
                         </div>
                     </div>
-
                 </div>
             </div>
         </div >

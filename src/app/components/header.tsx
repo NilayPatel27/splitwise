@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -6,15 +6,16 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input";
+import PasteAndAdd from './pasteAndAdd';
 
 const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
 
     const names = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
-    const [totalBill, setTotalBill] = useState(0);
 
+    const [totalBill, setTotalBill] = useState(0);
     const tempItem = JSON.parse(JSON.stringify(item));
     const [individualExpense, setIndividualExpense] = useState({
         'Ayushi': 0,
@@ -23,7 +24,8 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
         'Nilay': 0,
         'Om': 0,
         'Romil': 0
-    })
+    });
+    const [discount, setDiscount] = useState(0);
 
     useEffect(() => {
         let individualExpenses = {
@@ -58,14 +60,13 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
         setTotalBill(total);
     }, [item]);
 
-    const [discount, setDiscount] = useState(0);
-
     return (
         <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', position: 'sticky', top: '0', zIndex: 1, backgroundColor: 'black' }}>
             <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '70%', padding: '10px' }}>
                 <div style={{ width: '60%', backgroundColor: "white", padding: '10px', textAlign: "center", border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Item Name</div>
                 <div style={{ width: '20%', backgroundColor: "white", textAlign: "center", padding: '10px', border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Price</div>
                 <div style={{ width: '20%', backgroundColor: "white", textAlign: "center", padding: '10px', border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Tax</div>
+                <PasteAndAdd item={item} setItem={setItem} setItemCount={setItemCount} itemCount={itemCount} />
             </div>
             <Button
                 onClick={() => {
@@ -147,7 +148,6 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                     </DialogContent>
                 </Dialog>
             </div>
-
         </div>
     )
 }
