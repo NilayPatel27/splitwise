@@ -1,11 +1,8 @@
-import { useEffect } from "react";
+const NameComponent = ({ index, item, setItem, names }: any) => {
 
-const NameComponent = ({ index, item, setItem }: any) => {
-
-    const names = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
     const onNameClick = (contributor: string) => {
         const temp = JSON.parse(JSON.stringify(item));
-        if (!temp[index].contributor.some((name: string) => name === contributor)) {
+        if (!temp[index]?.contributor.some((name: string) => name === contributor)) {
             temp[index].contributor = [...temp[index]?.contributor, contributor];
         } else {
             temp[index].contributor = temp[index].contributor.filter((name: string) => name !== contributor);
@@ -17,7 +14,7 @@ const NameComponent = ({ index, item, setItem }: any) => {
     return (
         <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: "40%", padding: '10px' }}>
             {
-                Array.from({ length: names.length }).map((_, contributor) => {
+                Array.from({ length: names?.length }).map((_, contributor) => {
                     return (
                         <div style={{
                             flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '100%',
@@ -36,4 +33,4 @@ const NameComponent = ({ index, item, setItem }: any) => {
     )
 }
 
-export { NameComponent }
+export default NameComponent;

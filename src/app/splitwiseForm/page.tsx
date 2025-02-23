@@ -1,22 +1,31 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button";
 
-import { ItemComponent } from './itemComponent';
-import { NameComponent } from './nameComponent';
-import Header from './header';
+import { ItemComponent, NameComponent, Header } from '@/app/components/index';
+
+import { useSearchParams } from 'next/navigation';
 
 const SplitwiseForm = () => {
 
+    const contributor = useSearchParams().get('contributors');
+
     const [item, setItem] = useState([]);
     const [itemCount, setItemCount] = useState(0);
+    const [contributors, setContributors] = useState([]);
+
+    useEffect(() => {
+        if (contributor) {
+            setContributors(JSON.parse(contributor));
+        }
+    }, [contributor]);
 
     return (
         <div>
             <div style={{ flexDirection: 'row', backgroundColor: 'black', width: '100%', display: "flex" }}>
                 <div style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'flex-start', display: 'flex', width: '100%' }}>
-                    <Header item={item} setItem={setItem} setItemCount={setItemCount} itemCount={itemCount} />
+                    <Header item={item} setItem={setItem} setItemCount={setItemCount} itemCount={itemCount} names={contributors} />
                     <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '100%' }}>
                         <div style={{ display: "flex", 'justifyContent': 'space-between', 'alignItems': 'center', width: '100%', flexDirection: 'column' }}>
                             {
@@ -34,12 +43,12 @@ const SplitwiseForm = () => {
                                                 variant="outline"
                                                 style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
                                             >Delete</Button>
-                                            <NameComponent index={index} item={item} setItem={setItem} />
+                                            <NameComponent index={index} item={item} setItem={setItem} names={contributors} />
                                             <Button
                                                 onClick={() => {
                                                     const temp = JSON.parse(JSON.stringify(item));
-                                                    temp[index]?.contributor?.length === 6 ? temp[index].contributor = [] :
-                                                        temp[index].contributor = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
+                                                    temp[index]?.contributor?.length === contributors?.length ? temp[index].contributor = [] :
+                                                        temp[index].contributor = contributors;
                                                     setItem(temp);
                                                 }}
                                                 variant="outline"

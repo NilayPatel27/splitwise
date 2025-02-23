@@ -11,31 +11,23 @@ import {
 import { Input } from "@/components/ui/input";
 import PasteAndAdd from './pasteAndAdd';
 
-const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
+const Header = ({ item, setItem, setItemCount, itemCount, names }: any) => {
 
-    const names = ['Ayushi', 'Hetvi', 'Marmik', 'Nilay', 'Om', 'Romil'];
 
     const [totalBill, setTotalBill] = useState(0);
     const tempItem = JSON.parse(JSON.stringify(item));
-    const [individualExpense, setIndividualExpense] = useState({
-        'Ayushi': 0,
-        'Hetvi': 0,
-        'Marmik': 0,
-        'Nilay': 0,
-        'Om': 0,
-        'Romil': 0
-    });
+    const [individualExpense, setIndividualExpense] = useState();
     const [discount, setDiscount] = useState(0);
 
     useEffect(() => {
-        let individualExpenses = {
-            'Ayushi': 0,
-            'Hetvi': 0,
-            'Marmik': 0,
-            'Nilay': 0,
-            'Om': 0,
-            'Romil': 0
-        };
+
+        let individualExpenses = Array.from({ length: names.length }).reduce((acc: any, _, index) => {
+            return {
+                ...acc,
+                [names[index]]: 0
+            }
+        }, {});
+
         for (let i = 0; i < tempItem.length; i++) {
 
             const price = tempItem[i].price;
@@ -118,7 +110,7 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                                                         borderWidth: '3px', borderColor: 'blue', borderStyle: 'solid'
                                                     }}
                                                         key={contributor}
-                                                    >{individualExpense[names[contributor]].toFixed(2)}
+                                                    >{individualExpense[names[contributor]]?.toFixed(2)}
                                                     </div>
                                                     <div style={{
                                                         flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
@@ -127,7 +119,7 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                                                         borderWidth: '3px', borderColor: 'red', borderStyle: 'solid'
                                                     }}
                                                         key={contributor}
-                                                    >{(individualExpense[names[contributor]].toFixed(2) - (individualExpense[names[contributor]].toFixed(2) * discount / totalBill).toFixed(2)).toFixed(2)}
+                                                    >{(individualExpense[names[contributor]]?.toFixed(2) - (individualExpense[names[contributor]]?.toFixed(2) * discount / totalBill)?.toFixed(2)).toFixed(2)}
                                                     </div>
                                                     <div style={{
                                                         flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '50%',
@@ -136,7 +128,7 @@ const Header = ({ item, setItem, setItemCount, itemCount }: any) => {
                                                         borderWidth: '3px', borderColor: 'green', borderStyle: 'solid'
                                                     }}
                                                         key={contributor}
-                                                    >{discount ? ((individualExpense[names[contributor]].toFixed(2) * discount) / totalBill).toFixed(2) : 0}
+                                                    >{discount ? ((individualExpense[names[contributor]]?.toFixed(2) * discount) / totalBill)?.toFixed(2) : 0}
                                                     </div>
                                                 </div>
                                             </>

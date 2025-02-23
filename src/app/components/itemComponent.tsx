@@ -75,4 +75,4 @@ const ItemComponent = ({ index, item, setItem, checkBox = false }: any) => {
     )
 }
 
-export { ItemComponent }
+export default ItemComponent;

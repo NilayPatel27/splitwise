@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { SquarePlus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { ItemComponent } from './itemComponent';
+import { ItemComponent } from '@/app/components/index';
+
 
 const PasteAndAdd = ({ item, setItem, itemCount, setItemCount }: any) => {
 
@@ -131,4 +132,4 @@ const PasteAndAdd = ({ item, setItem, itemCount, setItemCount }: any) => {
     )
 }
 
-export default PasteAndAdd
+export default PasteAndAdd;
