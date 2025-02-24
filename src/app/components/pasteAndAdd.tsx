@@ -12,7 +12,6 @@ import { SquarePlus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ItemComponent } from '@/app/components/index';
 
-
 const PasteAndAdd = ({ item, setItem, itemCount, setItemCount }: any) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -80,52 +79,52 @@ const PasteAndAdd = ({ item, setItem, itemCount, setItemCount }: any) => {
     }
 
     return (
-        <div style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '6px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <div style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '6px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white', height: '50%' }}>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
                 <DialogTrigger>Paste & Add</DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <h1 style={{ textAlign: "center", padding: '10px', color: 'black', backgroundColor: 'white', borderRadius: '5px', border: '1px solid black', width: '50%', alignSelf: 'center' }}
-                        >Paste & Add</h1>
+                        <h1 style={{ textAlign: "center", padding: '10px', color: 'black', backgroundColor: 'white', borderRadius: '5px', border: '1px solid black', width: '50%', alignSelf: 'center' }}>Paste & Add</h1>
                         <div style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', display: 'flex', width: "100%", padding: '10px' }}>
                             <PasteAndAddItemName />
                             <PasteAndAddItemPrice />
                         </div>
-                        <DialogDescription>
-                            {
-                                Array.from({ length: tempItemCount }).map((_, index) => {
-                                    return (
-                                        <>
-                                            <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', padding: '10px' }} key={index}>
-                                                <ItemComponent index={index} item={tempItem} setItem={setTempItem} />
-                                                <Button
-                                                    onClick={() => {
-                                                        setTempItemCount(tempItemCount - 1);
-                                                        setTempPriceCount(tempPriceCount - 1);
-                                                        setTempItem(tempItem.filter((_, i) => i !== index));
-                                                    }}
-                                                    variant="outline"
-                                                    style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
-                                                >Delete</Button>
-                                            </div>
-                                        </>
-                                    )
-                                })
-                            }
-                        </DialogDescription>
-                        <DialogFooter className="sm:justify-around">
-                            <DialogClose asChild>
-                                <Button type="button" variant="destructive" onClick={() => onCancelClick()}>
-                                    Cancel
-                                </Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button type="button" variant="secondary" style={{ backgroundColor: 'blue', color: 'white' }} disabled={tempItemCount === 0 || tempPriceCount === 0 || (tempItemCount !== tempPriceCount)} onClick={() => onAddItemClick()}>
-                                    <SquarePlus /> Add Items
-                                </Button>
-                            </DialogClose>
-                        </DialogFooter>
                     </DialogHeader>
+
+                    <DialogDescription style={{ overflowY: 'scroll', height: '50vh' }}>
+                        {
+                            Array.from({ length: tempItemCount }).map((_, index) => {
+                                return (
+                                    <>
+                                        <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', padding: '10px' }} key={index}>
+                                            <ItemComponent index={index} item={tempItem} setItem={setTempItem} />
+                                            <Button
+                                                onClick={() => {
+                                                    setTempItemCount(tempItemCount - 1);
+                                                    setTempPriceCount(tempPriceCount - 1);
+                                                    setTempItem(tempItem.filter((_, i) => i !== index));
+                                                }}
+                                                variant="outline"
+                                                style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '10%', padding: '10px', margin: '10px', borderRadius: '5px', borderColor: 'black', borderWidth: '1px', borderStyle: 'solid', backgroundColor: 'white' }}
+                                            >Delete</Button>
+                                        </div>
+                                    </>
+                                )
+                            })
+                        }
+                    </DialogDescription>
+                    <DialogFooter className="sm:justify-around">
+                        <DialogClose asChild>
+                            <Button type="button" variant="destructive" onClick={() => onCancelClick()}>
+                                Cancel
+                            </Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                            <Button type="button" variant="secondary" style={{ backgroundColor: 'blue', color: 'white' }} disabled={tempItemCount === 0 || tempPriceCount === 0 || (tempItemCount !== tempPriceCount)} onClick={() => onAddItemClick()}>
+                                <SquarePlus /> Add Items
+                            </Button>
+                        </DialogClose>
+                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </div>

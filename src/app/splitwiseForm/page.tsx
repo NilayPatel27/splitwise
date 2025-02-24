@@ -23,11 +23,11 @@ const SplitwiseForm = () => {
 
     return (
         <div>
-            <div style={{ flexDirection: 'row', backgroundColor: 'black', width: '100%', display: "flex" }}>
+            <div style={{ flexDirection: 'row', backgroundColor: '#0d031b', width: '100%', display: "flex" }}>
                 <div style={{ flexDirection: 'column', justifyContent: 'space-around', alignItems: 'flex-start', display: 'flex', width: '100%' }}>
                     <Header item={item} setItem={setItem} setItemCount={setItemCount} itemCount={itemCount} names={contributors} />
                     <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', display: 'flex', width: '100%' }}>
-                        <div style={{ display: "flex", 'justifyContent': 'space-between', 'alignItems': 'center', width: '100%', flexDirection: 'column' }}>
+                        <div style={{ display: "flex", 'justifyContent': 'space-between', 'alignItems': 'center', width: '100%', flexDirection: 'column' }} >
                             {
                                 Array.from({ length: itemCount }).map((_, index) => {
                                     return (

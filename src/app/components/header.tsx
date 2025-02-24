@@ -53,9 +53,9 @@ const Header = ({ item, setItem, setItemCount, itemCount, names }: any) => {
     }, [item]);
 
     return (
-        <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', position: 'sticky', top: '0', zIndex: 1, backgroundColor: 'black' }}>
+        <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '100%', position: 'sticky', top: '0', zIndex: 1, backgroundColor: '#0d031b' }}>
             <div style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', display: 'flex', width: '70%', padding: '10px' }}>
-                <div style={{ width: '60%', backgroundColor: "white", padding: '10px', textAlign: "center", border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Item Name</div>
+                <div style={{ width: '60%', backgroundColor: "white", textAlign: "center", padding: '10px', border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Item Name</div>
                 <div style={{ width: '20%', backgroundColor: "white", textAlign: "center", padding: '10px', border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Price</div>
                 <div style={{ width: '20%', backgroundColor: "white", textAlign: "center", padding: '10px', border: '1px solid black', borderRadius: '5px', margin: '5px' }}>Tax</div>
                 <PasteAndAdd item={item} setItem={setItem} setItemCount={setItemCount} itemCount={itemCount} />
